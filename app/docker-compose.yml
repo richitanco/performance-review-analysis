@@ -1,0 +1,33 @@
+networks: 
+  my-networks:
+    driver: bridge
+volumes:
+  performance_app:
+  vectorstore_data:
+
+services:
+  performance-app:
+    image: python:3.12
+    ports:
+      - "7860:7860"
+    networks:
+      - my-networks
+    volumes:
+      - .:/app
+      - performance_app:/usr/local/lib/python3.12/site-packages
+    working_dir: /app
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: ["gpu"]
+    command: >
+      bash -c "pip install --upgrade pip && pip install -r /app/requirements.txt && pip install hf_xet && python -m spacy download en_core_web_md && python /app/main.py"
+  performance-vectorstore:
+    image: chromadb/chroma
+    networks:
+      - my-networks
+    volumes:
+      - vectorstore_data:/chroma/chroma
