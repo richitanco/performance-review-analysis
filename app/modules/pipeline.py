@@ -5,7 +5,6 @@ from .specificity_analyzer import SpecificityAnalyzer
 from .recommendation_engine import RecommendationEngine
 from .vectorstore import VectorStore
 from .feedbacktype import FeedbackTypeAnalyzer
-import re
 
 class PerformanceReviewAnalyzer:
     def __init__(self):
@@ -14,7 +13,10 @@ class PerformanceReviewAnalyzer:
         self.feedback_type = FeedbackTypeAnalyzer(self.zero_shot)
         self.bias_detector = BiasDetector(self.zero_shot)
         self.specificity_analyzer = SpecificityAnalyzer(self.zero_shot)
-        self.vectorstore = VectorStore(host="localhost", port=8000)
+        try:
+            self.vectorstore = VectorStore(host="localhost", port=8000)
+        except Exception as e:
+            self.vectorstore = VectorStore(host="app-performance-vectorstore-1", port=8000)
 
     def analyze(self, review_text, objectives=None):
         if not review_text.strip():

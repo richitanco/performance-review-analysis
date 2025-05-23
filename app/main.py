@@ -29,6 +29,7 @@ else:
     device = torch.device("cpu")
     print("Using CPU")
 
+
 # Create Gradio interface
 demo = gr.Interface(
     fn=analyze_review,
@@ -45,5 +46,5 @@ demo = gr.Interface(
 )
 
 # Launch the interface
-print("launching gradio app")
+print("try http://localhost:7860/")
 demo.launch(server_name="0.0.0.0",debug=True, share=True, server_port=7860)
