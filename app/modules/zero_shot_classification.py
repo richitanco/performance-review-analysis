@@ -13,23 +13,22 @@ class ZeroShotAnalyzer:
         # Define feedback type labels
         labels = ["positive feedback", "constructive criticism",
                  "actionable feedback", "vague feedback"]
-
         # Run zero-shot classification
-        result = self.classifier(text, labels, multi_label=True)
+        result = self.classifier(text, labels, multi_label=True, hypothesis_template="This is an example of a {}.")
         return result
 
     def detect_bias(self, text):
         # Define bias category labels
-        labels = ["bias", "unbiased"]
+        labels = ["culturally biased", "racial biased", "unbiased"]
 
         # Run zero-shot classification
-        result = self.classifier(text, labels, multi_label=True)
+        result = self.classifier(text, labels, multi_label=True, hypothesis_template="This statement, is {}.")
         return result
 
     def analyze_specificity(self, text):
         # Define specificity labels
-        labels = ["vague","specific"]
+        labels = ["goal oriented","not goal oriented"]
 
         # Run zero-shot classification
-        result = self.classifier(text, labels, multi_label=True)
+        result = self.classifier(text, labels, multi_label=True, hypothesis_template="This statment is {}.")
         return result
