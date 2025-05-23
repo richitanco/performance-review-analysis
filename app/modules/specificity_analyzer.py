@@ -1,42 +1,23 @@
-import re
+import numpy as np
 
 class SpecificityAnalyzer:
     def __init__(self, zero_shot_analyzer):
         self.analyzer = zero_shot_analyzer
-        # Patterns for vague language
-        self.vague_patterns = [
-            r"good job",
-            r"needs improvement",
-            r"work harder",
-            r"be more proactive",
-            r"communication skills",
-            r"team player",
-            r"meets expectations"
-        ]
 
     def analyze_specificity(self, processed_text):
         results = []
 
-        # Zero-shot analysis
-        zs_results = self.analyzer.analyze_specificity(processed_text["raw_text"])
-
         # Pattern-based detection
-        for i, sentence in enumerate(processed_text["sentences"]):
-            for pattern in self.vague_patterns:
-                if re.search(pattern, sentence, re.IGNORECASE):
-                    results.append({
-                        "sentence_id": i,
-                        "sentence": sentence,
-                        "issue": "vague language",
-                        "pattern": pattern
-                    })
+        for sentence in processed_text["sentences"]:
+            # Check gender bias markers
+            res = self.analyzer.analyze_specificity(sentence)
+            loc = np.argmax(res["scores"])
 
-        # Check for measurable outcomes
-        has_metrics = any(re.search(r'\d+%|\d+ percent|increased by', s)
-                         for s in processed_text["sentences"])
+            results.append({
+                "sentence": sentence,
+                "label": res["labels"][loc],
+                "intensity": "high" if res["scores"][loc]> 0.8 else "low" if res["scores"][loc] < 0.3 else "medium",
+                "prediction": res['scores'][loc]
+            })
 
-        return {
-            "sentence_issues": results,
-            "has_measurable_outcomes": has_metrics,
-            "zero_shot_results": zs_results
-        }
+        return results

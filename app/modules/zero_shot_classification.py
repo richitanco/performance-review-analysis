@@ -20,8 +20,7 @@ class ZeroShotAnalyzer:
 
     def detect_bias(self, text):
         # Define bias category labels
-        labels = ["gender-biased language", "racially-biased language",
-                 "personality-biased language", "neutral language"]
+        labels = ["bias", "unbiased"]
 
         # Run zero-shot classification
         result = self.classifier(text, labels, multi_label=True)
@@ -29,8 +28,7 @@ class ZeroShotAnalyzer:
 
     def analyze_specificity(self, text):
         # Define specificity labels
-        labels = ["specific feedback", "general feedback",
-                 "measurable feedback", "subjective feedback"]
+        labels = ["vague","specific"]
 
         # Run zero-shot classification
         result = self.classifier(text, labels, multi_label=True)

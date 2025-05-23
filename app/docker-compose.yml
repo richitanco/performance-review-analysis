@@ -4,6 +4,7 @@ networks:
 volumes:
   performance_app:
   vectorstore_data:
+  documents:
 
 services:
   performance-app:
@@ -15,6 +16,7 @@ services:
     volumes:
       - .:/app
       - performance_app:/usr/local/lib/python3.12/site-packages
+      - documents:/app/documents
     working_dir: /app
     deploy:
       resources:
@@ -25,6 +27,8 @@ services:
               capabilities: ["gpu"]
     command: >
       bash -c "pip install --upgrade pip && pip install -r /app/requirements.txt && pip install hf_xet && python -m spacy download en_core_web_md && python /app/main.py"
+    depends_on:
+      - performance-vectorstore
   performance-vectorstore:
     image: chromadb/chroma
     networks:

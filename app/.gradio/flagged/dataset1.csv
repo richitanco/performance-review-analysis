@@ -1,0 +1,26 @@
+Performance Objectives (one per line),Performance Review Text,output,timestamp
+increase sales by 15%,"ricardo is a good seller, always looks out for our clients and coworkers. But he missed sales by 2 % this year, not bad but he can do better","## Analysis Results
+
+### Detected Issues
+
+#### Potential Bias
+- **Gender bias:** ""But he missed sales by 2 % this year, not bad""
+  - Concerning terms: he
+- **Gender bias:** ""but he can do better""
+  - Concerning terms: he
+
+#### Vague Language
+- No vague language detected
+
+#### Objective Alignment
+- increase sales by 15%: ✓ Mentioned
+
+### Recommendations
+
+**Recommendation 1:**
+- **Original:** ""But he missed sales by 2 % this year, not bad""
+- **Suggestion:** This phrase could show bias: 'he'. Consider: 'using more gender-neutral language'
+
+**Recommendation 2:**
+- **Original:** ""but he can do better""
+- **Suggestion:** This phrase could show bias: 'he'. Consider: 'using more gender-neutral language'",2025-05-21 16:22:01.296713
