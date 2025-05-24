@@ -19,12 +19,12 @@ services:
       - documents:/app/documents
     working_dir: /app
     deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: ["gpu"]
+      #resources:
+        #reservations:
+          #devices:
+            #- driver: nvidia
+              #count: 1
+              #capabilities: ["gpu"]
     command: >
       bash -c "pip install --upgrade pip && pip install -r /app/requirements.txt && pip install hf_xet && python -m spacy download en_core_web_md && python -u /app/main.py"
     depends_on:
