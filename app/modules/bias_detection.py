@@ -6,17 +6,16 @@ class BiasDetector:
     def detect_bias(self, processed_text):
         results = []
 
-        # Lexicon-based detection
         for sentence in processed_text["sentences"]:
-            # Check gender bias markers
+            # Look into each of the sentence and check if its biased
             res = self.analyzer.detect_bias(sentence)
             loc = np.argmax(res["scores"])
 
             results.append({
-                "sentence": sentence,
-                "label": res["labels"][loc],
-                "intensity": "high" if res["scores"][loc]> 0.8 else "low" if res["scores"][loc] < 0.3 else "medium",
-                "prediction": res['scores'][loc]
+                "sentence": sentence, # Return the original sentence
+                "label": res["labels"][loc], # The clasification
+                "intensity": "high" if res["scores"][loc]> 0.8 else "low" if res["scores"][loc] < 0.3 else "medium", # The intensity of the bias
+                "prediction": res['scores'][loc] # The score of the classification or prediciton
             })
 
         return results

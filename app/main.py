@@ -46,5 +46,4 @@ demo = gr.Interface(
 )
 
 # Launch the interface
-print("try http://localhost:7860/")
 demo.launch(server_name="0.0.0.0",debug=True, share=True, server_port=7860)

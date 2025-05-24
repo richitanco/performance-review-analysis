@@ -15,13 +15,12 @@ These are suggestions based on the model `facebook/bart-large-mnli` and using so
 #### ⚠️ Pre instalation ⚠️
 1. install docker
 2. (optional) git bash
-<br>
+
 #### Instalation
 1. clone or download the zip file
 1. get to the app folder
 2. open the terminal
 3. input `docker-compose up -d`
-<br>
-<br>
+
 > [!NOTE]
 > It takes a while to setup, but be patient and play some music, read a book.

@@ -1,6 +1,8 @@
 import chromadb
 from chromadb.utils import embedding_functions
 
+# Chroma API Docs: https://docs.trychroma.com/docs/overview/introduction
+
 class VectorStore:
     def __init__(self,host,port):
         self.host = host
@@ -18,10 +20,10 @@ class VectorStore:
             embedding_function=self.default_ef
         )
     
-    def similar_documents(self, text:str, n_results:int=5, where:dict=None):
+    def similar_documents(self, text:str, n_results:int=5, where:dict=None) -> dict:
         text_split = text.split()
         res = self.collection_documents.query(
-            query_texts=text_split,
+            query_texts=text_split, # List of text
             n_results=n_results,
             where=where,
             include=["documents","distances"]

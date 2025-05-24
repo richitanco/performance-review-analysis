@@ -15,8 +15,11 @@ class PerformanceReviewAnalyzer:
         self.specificity_analyzer = SpecificityAnalyzer(self.zero_shot)
         try:
             self.vectorstore = VectorStore(host="localhost", port=8000)
-        except Exception as e:
+        except ValueError as e:
+            print(f"Error connecting to vectorstore: {e}. Using default settings.")
+            # Fallback to default settings if connection fails
             self.vectorstore = VectorStore(host="app-performance-vectorstore-1", port=8000)
+            
 
     def analyze(self, review_text, objectives=None):
         if not review_text.strip():

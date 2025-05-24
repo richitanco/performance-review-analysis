@@ -9,7 +9,7 @@ class FeedbackTypeAnalyzer:
 
         # Pattern-based detection
         for sentence in processed_text["sentences"]:
-            # Check feedback type markers
+            # Analyze each sentence for feedback type
             res = self.analyzer.classify_feedback_type(sentence)
             loc = res["scores"].index(max(res["scores"]))
 
